@@ -6,10 +6,10 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, FunctionTransformer
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_obj
+from src.utils import save_obj, custom_encoder
 from sklearn.model_selection import GridSearchCV
 
 @dataclass
@@ -21,19 +21,19 @@ class DataTransformation:
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
 
+
     def get_data_transformer_object(self):
         '''
         This function is responsible for the data transformation
         '''
         try:
-            numerical_columns = ["writing_score","reading_score"]
-            categorical_columns = [
-                "gender",
-                "race_ethnicity",
-                "parental_level_of_education",
-                "lunch",
-                "test_preparation_course",
-            ]
+            numerical_columns = ["LIMIT_BAL","AGE","BILL_AMT1","PAY_AMT1"]
+            categorical_columns1 = ["SEX","MARRIAGE"]
+            categorical_columns2 = ["EDUCATION"]
+            categorical_columns3 = ["PAY_0"]
+
+            # Define the custom ranking for each ordinal variable
+            education_categories = ["graduate school", "university", "high school","others"]
 
             num_pipeline = Pipeline(
                 steps= [
@@ -42,7 +42,7 @@ class DataTransformation:
                 ]
             )
 
-            cat_pipeline = Pipeline(
+            cat_pipeline1 = Pipeline(
                 steps=[
                     ("imputer",SimpleImputer(strategy='most_frequent')),
                     ("one _hot_encoding",OneHotEncoder()),
@@ -50,13 +50,33 @@ class DataTransformation:
                 ]
             )
 
-            logging.info(f"Categorical Columns:{categorical_columns} ")
+            cat_pipeline2 = Pipeline(
+                steps=[
+                    ("imputer",SimpleImputer(strategy='most_frequent')),
+                    ("one _hot_encoding",OrdinalEncoder(categories=[education_categories])),
+                    ("scaler",StandardScaler(with_mean = False))
+                ]
+            )
+
+            cat_pipeline3 = Pipeline(
+                steps = [
+                    ("imputer",SimpleImputer(strategy='most_frequent')),
+                    ('encoder', FunctionTransformer(custom_encoder)),
+                    ("scaler",StandardScaler(with_mean = False))
+                ]
+            )
+
+            logging.info(f"Categorical Columns1:{categorical_columns1} ")
+            logging.info(f"Categorical Columns2:{categorical_columns2} ")
             logging.info(f"Numerical Columns: {numerical_columns} ")
+            
 
             preprocessor = ColumnTransformer(
                 [
                 ("num_pipeline",num_pipeline,numerical_columns),
-                ('cat_pipelines',cat_pipeline,categorical_columns)
+                ('cat_pipelines1',cat_pipeline1,categorical_columns1),
+                ('cat_pipelines2',cat_pipeline2,categorical_columns2),
+                ('cat_pipeline3',cat_pipeline3,categorical_columns3)
                 ]
             )
 
@@ -81,13 +101,15 @@ class DataTransformation:
 
             preprocessing_obj = self.get_data_transformer_object()
 
-            target_column_name = "math_score"
-            numerical_columns = ["writing_score","reading_score"]
+            target_column_name = "default.payment.next.month"
+            columns_to_drop = ['ID','default.payment.next.month','PAY_2','PAY_3','PAY_4','PAY_5','PAY_6','BILL_AMT2','BILL_AMT3','BILL_AMT4','BILL_AMT5','BILL_AMT6',
+                       'PAY_AMT2','PAY_AMT3','PAY_AMT4','PAY_AMT5','PAY_AMT6']
+            numerical_columns = ["LIMIT_BAL","BILL_AMT1","PAY_AMT1"]
 
-            input_feature_train_df = train_df.drop(columns=[target_column_name], axis = 1)
+            input_feature_train_df = train_df.drop(columns=columns_to_drop, axis = 1)
             target_feature_train_df = train_df[target_column_name]
 
-            input_feature_test_df = test_df.drop(columns=[target_column_name], axis = 1)
+            input_feature_test_df = test_df.drop(columns=[columns_to_drop], axis = 1)
             target_feature_test_df = test_df[target_column_name]
 
             logging.info("Applying preprocessing object on training and testing dataframe")

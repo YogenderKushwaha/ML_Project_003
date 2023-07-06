@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nunito Sans', sans-serif;
+        }
+
+        .main-container {
+            display: flex;
+            width: 80%;
+            height: 100%;
+            border: 2px solid black;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .img-side {
+            width: 60%;
+            overflow: hidden;
+            background-color: #5b5656;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-side {
+            width: 40%;
+            display: flex;
+            height: 93vh;
+            flex-direction: column;
+            background-color: ;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            line-height: 0;
+        }
+
+        label {
+            font-weight: bolder;
+
+        }
+
+        .container {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+
+        .form-group {
+            padding: 10px;
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+            color: #5b5656;
+        }
+
+        .form-group input {
+            border: none;
+            border-bottom: 1px solid gray;
+        }
+
+        .btn {
+            text-align: center;
+        }
+
+        .btn input {
+            border-radius: 12px;
+            width: 200px;
+            height: 30px;
+            margin-top: 15px;
+            background: linear-gradient(rgba(222, 113, 177, 255) 0%, rgba(159, 126, 197, 255), rgba(77, 143, 222, 255) 100%);
+            cursor: pointer;
+            color: #5b5656;
+            background: white;
+            border: solid #5b5656 1px;
+            cursor: pointer;
+        }
+
+        .btn :hover {
+            font-weight: bolder;
+            color: white;
+            background: linear-gradient(90deg, rgba(11, 4, 65, 1) 0%, rgba(11, 57, 70, 1) 57%, rgba(78, 133, 154, 1) 100%);
+        }
+        .icon {
+            text-align: center;
+        }
+
+        .form-group :focus {
+            outline-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <div class="img-side">
+            <img src="https://images.unsplash.com/photo-1589758438368-0ad531db3366?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" />
+        </div>
+
+        <div class="content-side">
+            <div class="heading">
+                <p></p>
+                <h3>CREDIT CARD DEFAULTER PREDICTION</h3>
+                <p><b>Please enter the values in the below fields</b></p>
+            </div>
+            <div class="container">
+
+                <form action="{{url_for('predict_datapoint')}}" method="POST">
+
+                    <div class="wrap">
+                        <div class="form-group">
+                            <label for="LIMIT_BAL">LIMIT_BAL:</label>
+                            <input type="text" id="LIMIT_BAL" name="LIMIT_BAL" placeholder="Enter Credit Limit Balance (float)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AGE">AGE:</label>
+                            <input type="text" id="AGE" name="AGE" placeholder="Enter Age (int)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="BILL_AMT1">BILL_AMT1:</label>
+                            <input type="text" id="BILL_AMT1" name="BILL_AMT1" placeholder="Enter the latest Bill Amount (float)">
+                        </div>
+                    </div>
+
+                    <div class="wrap">
+                        <div class="form-group">
+                            <label for="PAY_AMT1">PAY_AMT1:</label>
+                            <input type="text" id="PAY_AMT1" name="PAY_AMT1" placeholder="Enter latest Amount Paid (float)">
+                        </div>
+
+
+                    <div class="wrap">
+                        <div class="form-group">
+                            <label for="SEX">SEX:</label>
+                            <select id="SEX" name="SEX">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="EDUCATION">EDUCATION:</label>
+                            <select id="EDUCATION" name="EDUCATION">
+                                <option value="Graduate School">Graduate School</option>
+                                <option value="University">University</option>
+                                <option value="High School">High School</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MARRIAGE">MARRIAGE:</label>
+                            <select id="MARRIAGE" name="MARRIAGE">
+                                <option value="Married">Married</option>
+                                <option value="Single">Single</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PAY_0">PAY_0:</label>
+                            <select id="PAY_0" name="PAY_0">
+                                <option value="Pay duly">Pay duly</option>
+                                <option value="Pay delay for 1 month">Pay delay for 1 month</option>
+                                <option value="Pay delay for 2 month">Pay delay for 2 month</option>
+                                <option value="Pay delay for 3 month">Pay delay for 3 month</option>
+                                <option value="Pay delay for 4 month">Pay delay for 4 month</option>
+                                <option value="Pay delay for 5 month">Pay delay for 5 month</option>
+                                <option value="Pay delay for 6 month">Pay delay for 6 month</option>
+                                <option value="Pay delay for 7 month">Pay delay for 7 month</option>
+                                <option value="Pay delay for 8 month">Pay delay for 8 month</option>
+                                <option value="Pay delay for 9 months or more">Pay delay for 9 months or more</option>
+                
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div style="clear:both;"></div>
+                    <div class="btn">
+                        <input type="submit" value="Submit">
+                    </div>
+                    <div class="icon">
+                        <br><br><br><br><br><br>
+                        <p>
+                        </p>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <a href="https://www.linkedin.com/in/yogender-kushwaha/" target="_blank">
+                            <i class="fa fa-linkedin-square" style="font-size:2em;color: black"></i>
+                        </a>
+                        
+                         &nbsp;
+                        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+                        <a href="https://github.com/YogenderKushwaha/ML_Project_002_AWS" target="_blank">
+                            <i class="fa fa-github" style = "font-size: 2em;color: black"></i>
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -87,6 +87,8 @@
         .btn {
             text-align: center;
         }
+        
+        
 
         .btn input {
             border-radius: 12px;
@@ -106,8 +108,14 @@
             color: white;
             background: linear-gradient(90deg, rgba(11, 4, 65, 1) 0%, rgba(11, 57, 70, 1) 57%, rgba(78, 133, 154, 1) 100%);
         }
+        
         .icon {
             text-align: center;
+        }
+        .end {
+            text-align: center;
+            font-size: 12px;
+            color:#808080;
         }
 
         .form-group :focus {
@@ -128,36 +136,33 @@
             <div class="heading">
                 <p></p>
                 <p></p>
-                <h3><b>CREDIT CARD DEFAULTER PREDICTION</b></h3>
+                <h3><b>DIAMOND PRICE PREDICTION</b></h3>
                 
-                <p>Click next to fill the response</p>
+                <p>The predicted price is: </p>
+            
+                <h1> {{final_result}} </h1>
             </div>
-            <div class="container">
-
-                <form action="{{url_for('predict_datapoint')}}" method="GET">
-
-
-
-                    <div style="clear:both;"></div>
-                    <div class="btn">
-                        <input type="submit" value="Next">
-                    </div>
-                    <div class="icon">
-                        <br><br><br><br><br><br><br><br><br>
-                        <br><br><br><br><br><br><br><br><br>
-                        <p>
-                        </p>
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                        <a href="https://www.linkedin.com/in/yogender-kushwaha/" target="_blank">
-                            <i class="fa fa-linkedin-square" style="font-size:2em;color: black"></i>
-                        </a>
-                        
-                         &nbsp;
-                        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-                        <a href="https://github.com/YogenderKushwaha/ML_Project_002_AWS" target="_blank">
-                            <i class="fa fa-github" style = "font-size: 2em;color: black"></i>
-                        </a>
-                    </div>
+            <div class="icon">
+                <br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br>
+                <p>
+                </p>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                <a href="https://www.linkedin.com/in/yogender-kushwaha/" target="_blank">
+                    <i class="fa fa-linkedin-square" style="font-size:2em;color: black"></i>
+                </a>
+                
+                 &nbsp;
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+                <a href="https://github.com/YogenderKushwaha/ML_Project_001" target="_blank">
+                    <i class="fa fa-github" style = "font-size: 2em;color: black"></i>
+                </a>
+            </div>
+            <div class="end">
+                <br><br><br>
+                <p>Made with ❤ by Yogender Kushwaha </p>
+                </div>
+            
 
                 </form>
             </div>

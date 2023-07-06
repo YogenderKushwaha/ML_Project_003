@@ -1,3 +1,3 @@
 # End to end Machine Learning
-## Score Prediction for students
+## Credit Card Defaulter prediction
 

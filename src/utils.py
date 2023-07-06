@@ -58,3 +58,17 @@ def load_object(file_path):
     except Exception as e:
         logging.info("Error Occured while Load object")
         raise CustomException(e, sys)
+
+
+
+def custom_encoder(x):
+    try:  
+        mapping = {'Pay Duly': -1, 'Pay delay for 1 month': 1, 'Pay delay for 2 months': 2, 'Pay delay for 3 months': 3,
+         'Pay delay for 4 months': 4,'Pay delay for 5 months': 5, 'Pay delay for 6 months': 6, 'Pay delay for 7 months': 7,
+          'Pay delay for 8 months': 8, 'Pay delay for 9 months or more': 9}
+        return x.map(mapping)
+
+    except:
+        logging.info("Error Occured in custom encoder")
+        raise CustomException(e, sys)
+
